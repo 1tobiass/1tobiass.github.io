@@ -40,7 +40,7 @@ function initializeAudio() {
     enterOverlay = document.getElementById('enter-overlay');
     
     // Set initial volume 
-    audio.volume = 0.35;
+    audio.volume = 0.1;
     
     // Set up overlay click handler
     enterOverlay.addEventListener('click', handleEnterSite);
@@ -97,9 +97,9 @@ function handleEnterSite() {
         volumeControl.classList.add('show');
         
         // Start audio after user interaction
-        audio.currentTime = 11;
+        audio.currentTime = 0;
         audio.muted = false;
-        audio.volume = 0.35;
+        audio.volume = 0.1;
         audio.play().then(() => {
             audioStarted = true;
             console.log('🎵 Audio started successfully after user interaction');
