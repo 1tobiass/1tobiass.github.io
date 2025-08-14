@@ -17,6 +17,12 @@ app.get('/', (req, res) => {
     res.sendFile(filePath);
 });
 
+// Quietly handle Chrome DevTools probe to avoid error logs
+app.get('/.well-known/appspecific/com.chrome.devtools.json', (req, res) => {
+    // Return 204 No Content so clients stop treating this as an error
+    res.status(204).send();
+});
+
 // Add error handling
 app.use((req, res, next) => {
     console.log(`404 - Route not found: ${req.method} ${req.url}`);

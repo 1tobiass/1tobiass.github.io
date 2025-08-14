@@ -6,42 +6,59 @@
     <title>1Aidk</title>
     <link rel="icon" href="cat.jpg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Enter Site Overlay -->
     <div id="enter-overlay" class="enter-overlay">
         <div class="enter-content">
-            <h1>Click to Enter</h1>
+            <h1>Welcome.</h1>
+            <p>Click anywhere to enter the site.</p>
         </div>
     </div>
     
     <div class="stars-container"></div>
-    <header>
-        <audio id="background-music" autoplay loop muted>
+    <main>
+        <div class="center-box">
+            <div class="profile-header">
+                <div class="pfp-container">
+                    <img src="pfp.gif" alt="Profile Picture" class="profile-picture">
+                </div>
+                <h2 class="username">ss03aid</h2>
+            </div>
+            
+            <p class="bio">"Ice cubes don't melt from the inside,
+                <br>I don't know what that means yet
+                <Br>BUT IT DOES SOUND TUFF!"</p>
+           
+            
+            <div class="socials-box">
+                <!-- Spotify Link with custom class -->
+                <a href="https://open.spotify.com/user/9morso6g2fqjdt7p4j39p76ul" class="social-link social-spotify">Spotify Profile</a>
+                <!-- Steam Link with custom class -->
+                <a href="https://steamcommunity.com/id/Kool_aid_kid/" class="social-link social-steam">Steam Profile</a>
+            </div>
+
+            <div class="music-display">
+                <div class="music-info">
+                    <span class="music-title">♪ Grapes - Glaive</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="volume-control-container">
+        <audio id="background-music" loop muted>
             <source src="grapes.mp3" type="audio/mpeg">
         </audio>
         <div class="volume-control">
-            <span class="volume-icon">🔊</span>
-            <input type="range" id="volume-slider" min="0" max="100" value="35" class="volume-slider">
-            <span class="volume-value">10%</span>
+            <span class="volume-icon">🔇</span>
+            <input type="range" id="volume-slider" min="0" max="100" value="0" class="volume-slider">
+            <span class="volume-value">0%</span>
         </div>
-
-    </header>
-    <main>        <div class="center-box">
-            <h2>1Aidk</h2>
-            <p>I don't know what to put here lol</p>
-                <div class="music-display">
-                <div class="music-info">
-                <span class="music-title">♪ Grapes - Glaive</span>
-                </div>
-            </div><br>
-                <div class="socials-box"></div>
-                    <a href="https://www.roblox.com/users/653589837/profile" class="social-link">My roblox profile</a>
-                </div>
-        </div>
-    </main>   
-     <footer>
-    </footer>
+    </div>
     
     <script src="script.js"></script>
 </body>

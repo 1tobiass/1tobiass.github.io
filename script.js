@@ -39,8 +39,9 @@ function initializeAudio() {
     volumeValue = document.querySelector('.volume-value');
     enterOverlay = document.getElementById('enter-overlay');
     
-    // Set initial volume 
-    audio.volume = 0.1;
+    // Set initial volume to 0 and mute it to comply with autoplay policies
+    audio.volume = 0;
+    audio.muted = true;
     
     // Set up overlay click handler
     enterOverlay.addEventListener('click', handleEnterSite);
@@ -57,7 +58,8 @@ function initializeAudio() {
             audio.play();
         }
     });
-      audio.addEventListener('error', function(e) {
+    
+    audio.addEventListener('error', function(e) {
         console.error('Audio error:', e);
     });
     
@@ -72,10 +74,13 @@ function initializeAudio() {
         const volumeIcon = document.querySelector('.volume-icon');
         if (volume === 0) {
             volumeIcon.textContent = '🔇';
+            audio.muted = true;
         } else if (volume < 0.5) {
             volumeIcon.textContent = '🔉';
+            audio.muted = false;
         } else {
             volumeIcon.textContent = '🔊';
+            audio.muted = false;
         }
     });
 }
@@ -85,7 +90,7 @@ function handleEnterSite() {
     
     // Hide overlay with animation
     enterOverlay.style.animation = 'fadeOut 0.5s ease-out forwards';
-      setTimeout(() => {
+    setTimeout(() => {
         enterOverlay.classList.add('hidden');
         
         // Show center box with animation
@@ -95,7 +100,7 @@ function handleEnterSite() {
         // Show volume control
         const volumeControl = document.querySelector('.volume-control');
         volumeControl.classList.add('show');
-        
+
         // Start audio after user interaction
         audio.currentTime = 0;
         audio.muted = false;
