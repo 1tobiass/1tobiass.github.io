@@ -75,7 +75,7 @@ function initializeAudio() {
         if (volume === 0) {
             volumeIcon.textContent = '🔇';
             audio.muted = true;
-        } else if (volume < 0.5) {
+        } else if (volume < 0.3) {
             volumeIcon.textContent = '🔉';
             audio.muted = false;
         } else {
@@ -102,9 +102,9 @@ function handleEnterSite() {
         volumeControl.classList.add('show');
 
         // Start audio after user interaction
-        audio.currentTime = 0;
+        audio.currentTime = 75;
         audio.muted = false;
-        audio.volume = 0.1;
+        audio.volume = 0.3;
         audio.play().then(() => {
             audioStarted = true;
             console.log('🎵 Audio started successfully after user interaction');
