@@ -17,8 +17,8 @@ app.get('/', (req, res) => {
     res.sendFile(filePath);
 });
 
-// Route for /Lstock to serve Lstock/index.html
-app.get('/Lstock', (req, res) => {
+// Route for /Lstock to serve Lstock/index.html (case-insensitive)
+app.get(/^\/lstock$/i, (req, res) => {
     console.log('Lstock route accessed');
     const filePath = path.join(__dirname, 'Lstock', 'index.html');
     console.log('Serving file from:', filePath);
