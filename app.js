@@ -17,11 +17,10 @@ app.get('/', (req, res) => {
     res.sendFile(filePath);
 });
 
-
 app.get('/angelina', (req, res) => {
     // This serves the main index file for any unknown route, 
     // allowing the client-side router to handle the path (like /angelina)
-    const filePath = path.join(__dirname, '/a/index.html');
+    const filePath = path.join(__dirname, 'angelina', 'index.html');
     res.sendFile(filePath);
 });
 
