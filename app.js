@@ -17,14 +17,24 @@ app.get('/', (req, res) => {
     res.sendFile(filePath);
 });
 
+<<<<<<< HEAD
+app.get('/angelina', (req, res) => {
+    console.log('Root route accessed');
+    const filePath = path.join(__dirname, './/a/index.html');
+=======
 // Route for /lstock to serve lstock/index.html (case-insensitive)
 app.get(/^\/lstock$/i, (req, res) => {
     console.log('lstock route accessed');
     const filePath = path.join(__dirname, 'lstock', 'index.html');
+>>>>>>> 6d760af5510ddf0ede247110066a0c53d44707e3
     console.log('Serving file from:', filePath);
     res.sendFile(filePath);
 });
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 6d760af5510ddf0ede247110066a0c53d44707e3
 // Quietly handle Chrome DevTools probe to avoid error logs
 app.get('/.well-known/appspecific/com.chrome.devtools.json', (req, res) => {
     // Return 204 No Content so clients stop treating this as an error

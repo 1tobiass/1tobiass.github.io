@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>.</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font and configure Tailwind colors -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Prevent scroll issues from flowers */
+            
+            /* Apply GIF background to ALL screens (Mobile and Desktop) */
+            background-image: url('./a/z.gif');
+            background-size: cover; /* Ensures the GIF scales to fit in frame, covering all area */
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed; /* Keeps the background fixed while scrolling (if scrolling was enabled) */
+            
+            margin: 0; /* Ensures no default margin (no corners) */
+            padding: 0; /* Ensures no default padding (no corners) */
+        }
+
+        /* Removed @media query, GIF is now the default background */
+        
+        /* Custom class for the blur effect on the gate */
+        .blur-background {
+            backdrop-filter: blur(40px); /* Increased blur for a dreamier effect */
+            -webkit-backdrop-filter: blur(20px);
+        }
+        /* Custom class for the text glow/shadow effect */
+        .text-glow {
+            /* Multiple white shadows for the glow effect, and a pink shadow for depth */
+            text-shadow: 0 0 4px #fff, 0 0 15px #fff, 0 0 20px rgba(255, 105, 180, 0.7);
+        }
+        /* Define the gentle falling animation */
+        @keyframes fall {
+            0% {
+                transform: translateY(-5vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) translateX(var(--x-end));
+                opacity: 0;
+            }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Changed to a richer, more vibrant pink
+                        'romantic-pink': '#FF99AA', /* Richer Light Pink */
+                        'deep-pink': '#FF69B4',   /* Hot Pink */
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen">
+
+    <!-- 1. The Gate Screen -->
+    <!-- Increased blur strength in the CSS definition -->
+    <div id="gate" class="fixed inset-0 flex items-center justify-center bg-black/50 blur-background transition-opacity duration-1000 z-50">
+        <button id="enter-button"
+            class="px-8 py-4 text-4xl font-extrabold text-deep-pink bg-transparent hover:text-pink-300 rounded-full transition duration-300 transform hover:scale-110 active:scale-95 cursor-pointer drop-shadow-2xl text-glow">
+            Click here babyyy
+        </button>
+    </div>
+
+    <!-- 2. The Main Content Screen -->
+    <div id="main-content" class="opacity-0 transition-opacity duration-1000 h-screen flex flex-col justify-center items-center p-4">
+        <!-- Header: Uses text-4xl on mobile, scales to sm:text-6xl -->
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-deep-pink text-glow">
+                I'm so sorry Angelina 🐨
+            </h1>
+        </header>
+
+        <!-- Main Text: Uses mobile-first padding (p-6, then sm:p-8, md:p-12) -->
+        <main class="max-w-3xl w-full p-6 sm:p-8 md:p-12 bg-white bg-opacity-80 rounded-3xl shadow-2xl text-center border-4 border-deep-pink/50">
+            <!-- Content text remains font-normal and text-xl (20px) as requested -->
+            <p class="font-normal text-xl text-gray-800 leading-relaxed italic text-glow">
+                I know I messed things up, and I've spent every day since realizing how much you mean to me. and with everything that happend really was a wake up call I desperately needed im so sorry. You are my home Angelina and the best part of my life was meeting you baby. All I want is to be better for you and with you babyy.
+            </p>
+            <!-- Content text remains font-normal and text-xl (20px) as requested -->
+            <p class="mt-6 font-normal text-xl text-deep-pink animate-pulse text-glow">
+                Please, give me one more chance to show you the man I've become and make the plans we planned real.
+            </p>
+        </main>
+    </div>
+
+    <!-- 3. Flower Animation Script -->
+    <script>
+        const gate = document.getElementById('gate');
+        const mainContent = document.getElementById('main-content');
+        const enterButton = document.getElementById('enter-button');
+        const body = document.body;
+
+        // --- Entrance Gate Logic ---
+        enterButton.addEventListener('click', () => {
+            // Fade out the gate
+            gate.style.opacity = '0';
+            // Reveal the main content
+            setTimeout(() => {
+                gate.classList.add('hidden');
+                mainContent.style.opacity = '1';
+            }, 1000); // Matches the transition duration
+        });
+
+        // --- Falling Flower Animation Logic ---
+
+        const flowerEmojis = ['🌸', '💖', '🌼', '✨', '🌹'];
+        const numFlowers = 25; // How many flowers to keep in the air
+        let flowerInterval;
+
+        function createFlower() {
+            const flower = document.createElement('div');
+            // Select a random flower emoji
+            flower.innerHTML = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
+
+            const size = Math.random() * 20 + 10; // 10px to 30px size
+            const duration = Math.random() * 10 + 5; // 5s to 15s fall time
+            const startX = Math.random() * 100; // 0% to 100% screen width
+            const endX = startX + (Math.random() - 0.5) * 20; // Slight horizontal drift
+
+            // Apply CSS styles
+            Object.assign(flower.style, {
+                position: 'fixed',
+                top: `-${size}px`,
+                left: `${startX}vw`,
+                fontSize: `${size}px`,
+                zIndex: '10', // Below the gate, above the main content
+                pointerEvents: 'none', // Don't block clicks
+                animation: `fall ${duration}s linear forwards`,
+                // Set the custom CSS variable for the animation keyframe
+                '--x-end': `${endX}vw`,
+            });
+
+            // Append and remove after animation ends
+            body.appendChild(flower);
+            setTimeout(() => {
+                flower.remove();
+            }, duration * 1000);
+        }
+
+        // Start creating flowers
+        function startFallingFlowers() {
+            // Create the initial batch quickly
+            for(let i = 0; i < numFlowers; i++) {
+                setTimeout(createFlower, i * 200);
+            }
+            // Then maintain the flow
+            flowerInterval = setInterval(createFlower, 500); // Create a new flower every 0.5 seconds
+        }
+
+        // Wait for the window to load before starting the animation
+        window.onload = startFallingFlowers;
+
+    </script>
+</body>
+</html>
