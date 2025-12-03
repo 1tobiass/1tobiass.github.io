@@ -17,12 +17,11 @@ app.get('/', (req, res) => {
     res.sendFile(filePath);
 });
 
-// Route for /angelina
+
 app.get('/angelina', (req, res) => {
-    console.log('Angelina route accessed');
-    // Note: I cleaned up the path from './/a/index.html' to a more standard 'a/index.html'
-    const filePath = path.join(__dirname, 'a', 'index.html'); 
-    console.log('Serving file from:', filePath);
+    // This serves the main index file for any unknown route, 
+    // allowing the client-side router to handle the path (like /angelina)
+    const filePath = path.join(__dirname, '/a/index.html');
     res.sendFile(filePath);
 });
 
