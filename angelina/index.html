@@ -3,168 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>.</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Use Inter font and configure Tailwind colors -->
+    <title>January 3rd, 2026 Countdown</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            overflow: hidden; /* Prevent scroll issues from flowers */
-            
-            /* Apply GIF background to ALL screens (Mobile and Desktop) */
-            background-image: url('/angelina/z.gif');
-            background-size: cover; /* Ensures the GIF scales to fit in frame, covering all area */
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-attachment: fixed; /* Keeps the background fixed while scrolling (if scrolling was enabled) */
-            
-            margin: 0; /* Ensures no default margin (no corners) */
-            padding: 0; /* Ensures no default padding (no corners) */
+        /* Define Pink Palette */
+        :root {
+            --pink-light: #fbe5f0;
+            --pink-medium: #f2a6c8;
+            --pink-dark: #e04a8c;
+            --magenta: #b42e6a;
+            --text-color: #333;
+            --header-color: #b42e6a;
         }
 
-        /* Removed @media query, GIF is now the default background */
+        body {
+            font-family: 'Poppins', sans-serif; /* A clean, modern font */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+                        background-size: cover; /* Ensures the GIF scales to fit in frame, covering all area */
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            margin: 0;
+            /* Gradient background matching the image style */
+            background-image: url('/angelina/z.gif');
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 40px 60px;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 90%; /* Added: Allows container to shrink on small screens */
+            border: 3px solid var(--pink-medium);
+            box-sizing: border-box; /* Added: Ensure padding and border are included in the element's total width and height */
+        }
+
+        h1 {
+            color: var(--header-color);
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            font-weight: 700;
+        }
+
+        /* --- Primary Countdown Styles (Desktop/Tablet) --- */
+        .countdown-timer {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .time-box {
+            background: linear-gradient(145deg, var(--pink-medium), var(--pink-dark));
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 90px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s;
+            flex-grow: 1; /* Added: Allow boxes to grow equally */
+        }
+
+        .time-box .value {
+            font-size: 3.5em;
+            font-weight: 900;
+            display: block;
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+
+        .time-box .label {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* --- Specialized Timers Styles (Desktop/Tablet) --- */
+        .special-section-header {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: var(--magenta);
+            font-size: 1.1em;
+            font-weight: 600;
+            border-top: 1px solid var(--pink-light);
+            padding-top: 20px;
+        }
         
-        /* Custom class for the blur effect on the gate */
-        .blur-background {
-            backdrop-filter: blur(40px); /* Increased blur for a dreamier effect */
-            -webkit-backdrop-filter: blur(20px);
+        .special-timers {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
-        /* Custom class for the text glow/shadow effect */
-        .text-glow {
-            /* Multiple white shadows for the glow effect, and a pink shadow for depth */
-            text-shadow: 0 0 4px #fff, 0 0 15px #fff, 0 0 20px rgba(255, 105, 180, 0.7);
+
+        .special-box {
+            background: linear-gradient(145deg, var(--pink-light), var(--pink-medium)); 
+            color: var(--magenta);
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            flex: 1;
+            min-width: 200px; 
         }
-        /* Define the gentle falling animation */
-        @keyframes fall {
-            0% {
-                transform: translateY(-5vh) translateX(0);
-                opacity: 0;
+
+        .special-box .special-value {
+            font-size: 2.5em;
+            font-weight: 800;
+            display: block;
+        }
+
+        .special-box .special-label {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        .finished-message {
+            font-size: 1.8em;
+            color: var(--magenta);
+            font-weight: 800;
+            display: none;
+            margin-top: 40px;
+            padding: 10px;
+            border: 2px dashed var(--pink-dark);
+            border-radius: 10px;
+            background-color: var(--pink-light);
+        }
+
+        /* ================================================= */
+        /* === MOBILE RESPONSIVENESS (Screens up to 600px) === */
+        /* ================================================= */
+        @media (max-width: 600px) {
+            
+            .container {
+                padding: 20px; /* Reduced padding on small screens */
+                width: 95%; /* Wider container use */
             }
-            10% {
-                opacity: 0.8;
+
+            h1 {
+                font-size: 1.5em; /* Smaller header */
             }
-            100% {
-                transform: translateY(100vh) translateX(var(--x-end));
-                opacity: 0;
+
+            /* Stack the main D/H/M/S boxes vertically or wrap two per row */
+            .countdown-timer {
+                flex-wrap: wrap; 
+                gap: 10px; 
+            }
+
+            .time-box {
+                flex-basis: calc(50% - 5px); /* Two boxes per row */
+                min-width: unset; /* Remove minimum width constraint */
+                padding: 15px 10px;
+            }
+            
+            .time-box .value {
+                font-size: 2.5em; /* Smaller font for values */
+            }
+            
+            .time-box .label {
+                font-size: 0.7em; /* Smaller font for labels */
+            }
+
+            /* Stack the Total Hours/Minutes/Seconds boxes vertically */
+            .special-timers {
+                flex-direction: column; /* Stack vertically */
+                gap: 15px;
+            }
+
+            .special-box {
+                min-width: unset; 
+                flex-basis: 100%; /* Take full width */
             }
         }
     </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        // Changed to a richer, more vibrant pink
-                        'romantic-pink': '#FF99AA', /* Richer Light Pink */
-                        'deep-pink': '#FF69B4',   /* Hot Pink */
-                    }
-                }
-            }
-        }
-    </script>
 </head>
-<body class="min-h-screen">
+<body>
 
-    <!-- 1. The Gate Screen -->
-    <!-- Increased blur strength in the CSS definition -->
-    <div id="gate" class="fixed inset-0 flex items-center justify-center bg-black/50 blur-background transition-opacity duration-1000 z-50">
-        <button id="enter-button"
-            class="px-8 py-4 text-4xl font-extrabold text-deep-pink bg-transparent hover:text-pink-300 rounded-full transition duration-300 transform hover:scale-110 active:scale-95 cursor-pointer drop-shadow-2xl text-glow">
-            Click here babyyy
-        </button>
+    <div class="container">
+        <h1>Time Until January 3rd, 2026 at 10:00 AM</h1>
+
+        <div class="countdown-timer" id="countdown">
+            <div class="time-box">
+                <span class="value" id="days">00</span>
+                <span class="label">Days</span>
+            </div>
+            <div class="time-box">
+                <span class="value" id="hours">00</span>
+                <span class="label">Hours</span>
+            </div>
+            <div class="time-box">
+                <span class="value" id="minutes">00</span>
+                <span class="label">Minutes</span>
+            </div>
+            <div class="time-box">
+                <span class="value" id="seconds">00</span>
+                <span class="label">Seconds</span>
+            </div>
+        </div>
+
+        <div class="special-section-header">Total Time Remaining</div>
+
+        <div class="special-timers" id="special-timers">
+            <div class="special-box">
+                <span class="special-value" id="total-hours">00</span>
+                <span class="special-label">Total Hours</span>
+            </div>
+            <div class="special-box">
+                <span class="special-value" id="total-minutes">00</span>
+                <span class="special-label">Total Minutes</span>
+            </div>
+            <div class="special-box">
+                <span class="special-value" id="total-seconds">00</span>
+                <span class="special-label">Total Seconds</span>
+            </div>
+        </div>
+
+
+        <div class="finished-message" id="finished">
+            🎉 THE COUNTDOWN IS OVER! TIME TO CELEBRATE! 🎉
+        </div>
     </div>
 
-    <!-- 2. The Main Content Screen -->
-    <div id="main-content" class="opacity-0 transition-opacity duration-1000 h-screen flex flex-col justify-center items-center p-4">
-        <!-- Header: Uses text-4xl on mobile, scales to sm:text-6xl -->
-        <header class="mb-12 text-center">
-            <h1 class="text-4xl sm:text-6xl font-extrabold text-deep-pink text-glow">
-                I'm so sorry Angelina 🐨
-            </h1>
-        </header>
-
-        <!-- Main Text: Uses mobile-first padding (p-6, then sm:p-8, md:p-12) -->
-        <main class="max-w-3xl w-full p-6 sm:p-8 md:p-12 bg-white bg-opacity-80 rounded-3xl shadow-2xl text-center border-4 border-deep-pink/50">
-            <!-- Content text remains font-normal and text-xl (20px) as requested -->
-            <p class="font-normal text-xl text-gray-800 leading-relaxed italic text-glow">
-                I know I messed things up, and I've spent every day since realizing how much you mean to me. and with everything that happend really was a wake up call I desperately needed im so sorry. You are my home Angelina and the best part of my life was meeting you baby. All I want is to be better for you and with you babyy.
-            </p>
-            <!-- Content text remains font-normal and text-xl (20px) as requested -->
-            <p class="mt-6 font-normal text-xl text-deep-pink animate-pulse text-glow">
-                Please, give me one more chance to show you the man I've become and make the plans we planned real.
-            </p>
-        </main>
-    </div>
-
-    <!-- 3. Flower Animation Script -->
     <script>
-        const gate = document.getElementById('gate');
-        const mainContent = document.getElementById('main-content');
-        const enterButton = document.getElementById('enter-button');
-        const body = document.body;
+        // Set the date we're counting down to
+        const countDownDate = new Date("January 3, 2026 10:00:00").getTime();
 
-        // --- Entrance Gate Logic ---
-        enterButton.addEventListener('click', () => {
-            // Fade out the gate
-            gate.style.opacity = '0';
-            // Reveal the main content
-            setTimeout(() => {
-                gate.classList.add('hidden');
-                mainContent.style.opacity = '1';
-            }, 1000); // Matches the transition duration
-        });
+        // Update the count down every 1 second
+        const x = setInterval(function() {
 
-        // --- Falling Flower Animation Logic ---
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
 
-        const flowerEmojis = ['🌸', '💖', '🌼', '✨', '🌹'];
-        const numFlowers = 25; // How many flowers to keep in the air
-        let flowerInterval;
+            // --- Primary Time Calculations (Days, Hours, Minutes, Seconds) ---
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        function createFlower() {
-            const flower = document.createElement('div');
-            // Select a random flower emoji
-            flower.innerHTML = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
+            // Output the results in the primary elements (Padded to 2 digits)
+            document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+            
+            
+            // --- Specialized Total Time Calculations (Hours, Minutes, Seconds) ---
+            const totalHours = Math.floor(distance / (1000 * 60 * 60));
+            const totalMinutes = Math.floor(distance / (1000 * 60));
+            const totalSeconds = Math.floor(distance / 1000); 
+            
+            // Output the results in the specialized elements (Using toLocaleString for comma separators)
+            document.getElementById("total-hours").innerHTML = totalHours.toLocaleString(); 
+            document.getElementById("total-minutes").innerHTML = totalMinutes.toLocaleString();
+            document.getElementById("total-seconds").innerHTML = totalSeconds.toLocaleString();
 
-            const size = Math.random() * 20 + 10; // 10px to 30px size
-            const duration = Math.random() * 10 + 5; // 5s to 15s fall time
-            const startX = Math.random() * 100; // 0% to 100% screen width
-            const endX = startX + (Math.random() - 0.5) * 20; // Slight horizontal drift
 
-            // Apply CSS styles
-            Object.assign(flower.style, {
-                position: 'fixed',
-                top: `-${size}px`,
-                left: `${startX}vw`,
-                fontSize: `${size}px`,
-                zIndex: '10', // Below the gate, above the main content
-                pointerEvents: 'none', // Don't block clicks
-                animation: `fall ${duration}s linear forwards`,
-                // Set the custom CSS variable for the animation keyframe
-                '--x-end': `${endX}vw`,
-            });
-
-            // Append and remove after animation ends
-            body.appendChild(flower);
-            setTimeout(() => {
-                flower.remove();
-            }, duration * 1000);
-        }
-
-        // Start creating flowers
-        function startFallingFlowers() {
-            // Create the initial batch quickly
-            for(let i = 0; i < numFlowers; i++) {
-                setTimeout(createFlower, i * 200);
+            // If the count down is finished, write some text 
+            if (distance < 0) {
+                clearInterval(x);
+                // Hide all timers
+                document.getElementById("countdown").style.display = "none";
+                document.getElementById("special-timers").style.display = "none";
+                // Show finished message
+                document.getElementById("finished").style.display = "block";
             }
-            // Then maintain the flow
-            flowerInterval = setInterval(createFlower, 500); // Create a new flower every 0.5 seconds
-        }
-
-        // Wait for the window to load before starting the animation
-        window.onload = startFallingFlowers;
-
+        }, 1000);
     </script>
 </body>
 </html>
